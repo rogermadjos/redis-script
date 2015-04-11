@@ -59,11 +59,13 @@ RedisScript.prototype.exec = function() {
   }
   if(argu.length === 1 && _.isArray(argu[0])) {
     args = argu.shift();
+    args = _.map(args, function(arg) {
+      return arg+'';
+    });
   }
   if(argu.length > 0) {
     _.each(argu, function(arg, index) {
-      if(!_.isString(arg)) throw new Error('Invalid argument. `argv['+(index)+']` is not of type `string`');
-      args.push(arg);
+      args.push(arg+'');
     });
   }
   if(!self.__scripts[name]) throw new Error('No script: '+name);
